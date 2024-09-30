@@ -4,6 +4,8 @@ import Home from './Pages/Home';
 import "aos/dist/aos.css";
 import AOS from "aos";
 import React from 'react';
+import SignUp from './Pages/SignUp';
+import SignIn from './Pages/SignIn';
 
 
 
@@ -26,6 +28,8 @@ function App() {
             
             <Routes>
               <Route path='/' element={<Home/>} />
+              <Route path='/signup' element={<SignUp/>} />
+              <Route path='/signin' element={<SignIn/>} />
             </Routes>
 
         </Router>

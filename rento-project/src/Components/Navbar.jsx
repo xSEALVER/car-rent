@@ -20,12 +20,12 @@ function Navbar() {
           <li>
             <Link to="/services" className="text-lg font-medium  hover:text-primary py-2 hover:border-b-2 hover:border-red-500 transition-colors duration-100 ">Services</Link>
           </li>
-          {/* <li>
+          <li>
             <Link to="/signup" className="text-gray-800 hover:text-blue-600 transition">Sign Up</Link>
           </li>
           <li>
             <Link to="/signin" className="text-gray-800 hover:text-blue-600 transition">Sign In</Link>
-          </li> */}
+          </li>
         </div>
       </ul>
     </nav>
