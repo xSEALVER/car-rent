@@ -42,10 +42,15 @@ const News = () => {
   };
 
   return (
-    <div className="flex justify-center items-center min-h-screen bg-white">
+    <div className="flex justify-center items-center min-h-screen bg-white"
+    data-aos="fade-up"
+>
     <div className="w-full max-w-md bg-gray-100 p-6 rounded-lg text-black shadow-lg">
-      <h1 className="text-center text-2xl font-semibold mb-6">Newsletter</h1>
-      <p className="text-center mb-4">
+      <h1 className="text-center text-2xl font-semibold mb-6"
+                    data-aos="fade-left"
+
+      >Newsletter</h1>
+      <p className="text-center mb-4" data-aos="fade-up">
         Inscrivez-vous à notre newsletter pour rester informé(e) et connecté(e) avec Weboxing !
       </p>
   
@@ -61,7 +66,7 @@ const News = () => {
       )}
   
       <form onSubmit={handleFormSubmit}>
-        <div className="mb-4">
+        <div className="mb-4"   >
           <input
             type="email"
             className="w-full p-3 rounded bg-gray-200 placeholder-gray-800 focus:outline-none focus:ring-2 focus:ring-yellow-500"

@@ -6,7 +6,7 @@ import ServicesComp from '../Components/ServicesComp';
 import CarList from '../Components/CarList';
 import Testimonial from '../Components/Testimonial';
 import AppStoreBanner from '../Components/AppStoreBanner';
-import Contact from '../Components/Contact';
+import Contact from '../Components/ContactComp';
 import Footer from '../Components/Footer';
 import News from '../Components/News';
 
