@@ -3,7 +3,7 @@ import whiteCar from "../assets/white-car.png";
 import car2 from "../assets/car5.png";
 import car3 from "../assets/car6.png";
 
-const carList = [
+const Listcar = [
   {
     name: "BMW UX",
     price: 100,
@@ -24,10 +24,10 @@ const carList = [
   },
 ];
 
-const CarList = () => {
+const CarListHome = () => {
   return (
     <div className="pb-24">
-      <div className="container mx-8">
+      <div className="container">
         {/* Heading */}
         <h1
           data-aos="fade-up"
@@ -41,12 +41,12 @@ const CarList = () => {
         </p>
         {/* Car listing */}
         <div>
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-16  ">
-            {carList.map((data) => (
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-16">
+            {Listcar.map((data) => (
               <div
                 data-aos="fade-up"
                 data-aos-delay={data.aosDelay}
-                className="space-y-3 border-2 border-gray-300 hover:border-yellow-400 p-3 rounded-xl relative group"
+                className="space-y-3 border-2 border-gray-300 hover:border-primary p-3 rounded-xl relative group"
               >
                 <div className="w-full h-[120px]">
                   <img
@@ -71,7 +71,7 @@ const CarList = () => {
         </div>
         {/* End of car listing */}
         <div className="grid place-items-center mt-8">
-          <button data-aos="fade-up" className=" border-yellow-400 border-2 rounded px-6 py-2 text-yellow-400 hover:bg-yellow-400 hover:text-black hover:transition">
+          <button data-aos="fade-up" className="button-outline">
             Get Started
           </button>
         </div>
@@ -80,4 +80,4 @@ const CarList = () => {
   );
 };
 
-export default CarList;
+export default CarListHome;

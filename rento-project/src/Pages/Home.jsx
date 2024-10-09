@@ -3,7 +3,7 @@ import Navbar from '../Components/Navbar';
 import Hero from '../Components/Hero';
 import AboutComp from '../Components/AboutComp';
 import ServicesComp from '../Components/ServicesComp';
-import CarList from '../Components/CarList';
+import CarListHome from '../Components/CarListHome';
 import Testimonial from '../Components/Testimonial';
 import AppStoreBanner from '../Components/AppStoreBanner';
 import Contact from '../Components/ContactComp';
@@ -17,7 +17,7 @@ function Home() {
         <Hero/>
         <AboutComp/>
         <ServicesComp/>
-        <CarList/>
+        <CarListHome/>
         <Testimonial/>
         <AppStoreBanner/>
         <Contact/>

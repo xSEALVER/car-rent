@@ -1,64 +1,15 @@
-// import React, { useState } from 'react';
-// import axios from 'axios';
-
-// const SignIpComp = () => {
-//     const [formData, setFormData] = useState({
-//         email: ''
-//     });
-
-//     const handleChange = (e) => {
-//         const { name, value } = e.target;
-//         setFormData({
-//             ...formData,
-//             [name]: value
-//         });
-//     };
-
-//     const handleSubmit = async (e) => {
-//         e.preventDefault();
-//         console.log('Form data to be submitted:', formData); // Debugging
-//         try {
-//             const response = await axios.post('http://localhost:8081/signin', formData); // Assurez-vous que le port est correct
-//             console.log('Form data submitted successfully:', response.data);
-//             setFormData({ email: '' });
-//         } catch (err) {
-//             console.error('Error submitting form data:', err);
-//         }
-//     };
-
-//     return (
-//         <Container className="d-flex vh-100 bg-light justify-content-center align-items-center">
-//             <div className="w-50 bg-white rounded p-4">
-//                 <h2 className="mb-4">Connexion</h2>
-//                 <Form onSubmit={handleSubmit}>
-//                     <Form.Group className="mb-3" controlId="formEmail">
-//                         <Form.Label>Email</Form.Label>
-//                         <Form.Control 
-//                             type="email" 
-//                             placeholder="Entrez votre email" 
-//                             name="email" 
-//                             value={formData.email} 
-//                             onChange={handleChange} 
-//                         />
-//                     </Form.Group>
-
-//                     <Button variant="primary" type="submit">
-//                         Connexion
-//                     </Button>
-//                 </Form>
-//             </div>
-//         </Container>
-//     );
-// };
-
-// export default SignIpComp;
-
 import React, { useState } from 'react';
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom'; // Import useNavigate
+import { useUser } from '../context/UserContext'; // Import UserContext
 
-const SignIpComp = () => {
+
+const SignInComp = () => {
+    const navigate = useNavigate(); // Initialize navigate
+    const { setUserEmail } = useUser(); // Get setUserEmail from context
     const [formData, setFormData] = useState({
-        email: ''
+        email: '',
+        password: ''
     });
 
     const handleChange = (e) => {
@@ -71,38 +22,64 @@ const SignIpComp = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        console.log('Form data to be submitted:', formData); // Debugging
+
         try {
             const response = await axios.post('http://localhost:8081/signin', formData);
-            console.log('Form data submitted successfully:', response.data);
-            setFormData({ email: '' });
+            console.log('Sign-in successful:', response.data);
+
+            const userData = response.data; // Adjust according to your API response
+            setUserEmail(userData.email); // Set email in context
+
+            // Navigate to /trips with user data
+            navigate("/carlist", { 
+                state: { 
+                    name: `${userData.firstName} ${userData.lastName}`, 
+                    email: userData.email 
+                } 
+            });
+
+            // Optionally, reset the form
+            setFormData({ email: '', password: '' });
         } catch (err) {
-            console.error('Error submitting form data:', err);
+            console.error('Error signing in:', err.response?.data || err);
+            // Handle error (e.g., show an error message)
         }
     };
 
     return (
         <div className="flex justify-center items-center min-h-screen bg-gray-100">
-            <div className="w-full max-w-md bg-white p-6 rounded-lg shadow-lg">
-                <h2 className="text-2xl font-semibold mb-6">Connexion</h2>
+            <div className="w-full max-w-lg bg-white rounded p-6 shadow-lg">
+                <h2 className="mb-6 text-2xl font-semibold">Sign In</h2>
                 <form onSubmit={handleSubmit}>
                     <div className="mb-4">
                         <label className="block mb-2">Email</label>
                         <input
                             type="email"
+                            placeholder="Enter your email"
                             name="email"
-                            placeholder="Entrez votre email"
                             value={formData.email}
                             onChange={handleChange}
-                            className="w-full p-3 border rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
-                            required
+                            className="w-full p-2 border rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
                         />
                     </div>
-                    <button
-                        type="submit"
-                        className="w-full bg-blue-600 text-white p-3 rounded hover:bg-blue-700 transition duration-300"
+
+                    <div className="mb-4">
+                        <label className="block mb-2">Password</label>
+                        <input
+                            type="password"
+                            placeholder="Enter your password"
+                            name="password"
+                            value={formData.password}
+                            onChange={handleChange}
+                            className="w-full p-2 border rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
+                        />
+                    </div>
+
+                    <button 
+                        type="submit" 
+                        className="w-full bg-blue-600 text-white p-2 rounded hover:bg-blue-700 transition duration-300"
                     >
-                        Connexion
+                        Sign In
                     </button>
                 </form>
             </div>
@@ -110,4 +87,4 @@ const SignIpComp = () => {
     );
 };
 
-export default SignIpComp;
+export default SignInComp;
