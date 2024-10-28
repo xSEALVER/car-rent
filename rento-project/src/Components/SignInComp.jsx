@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-import { useNavigate } from 'react-router-dom'; // Import useNavigate
+import { useNavigate, useLocation } from 'react-router-dom'; // Import useNavigate and useLocation
 import { useUser } from '../context/UserContext'; // Import UserContext
-
 
 const SignInComp = () => {
     const navigate = useNavigate(); // Initialize navigate
+    const location = useLocation(); // Get location
     const { setUserEmail } = useUser(); // Get setUserEmail from context
     const [formData, setFormData] = useState({
         email: '',
@@ -22,29 +22,43 @@ const SignInComp = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-
+        
         try {
             const response = await axios.post('http://localhost:8081/signin', formData);
-            console.log('Sign-in successful:', response.data);
-
-            const userData = response.data; // Adjust according to your API response
-            setUserEmail(userData.email); // Set email in context
-
-            // Navigate to /trips with user data
-            navigate("/carlist", { 
-                state: { 
-                    name: `${userData.firstName} ${userData.lastName}`, 
-                    email: userData.email 
-                } 
-            });
-
-            // Optionally, reset the form
+            console.log('Sign-in successful:', response.data); // Log the full response
+    
+            const userData = response.data;
+            setUserEmail(userData.email);
+    
+            const clientId = userData.id_clients; // Retrieve the client ID
+            const role = userData.role; // Retrieve the user role
+    
+            console.log('Client ID:', clientId); // Log the client ID
+            console.log('User Role:', role); // Log the user role
+    
+            // Store the client ID and role in local storage
+            localStorage.setItem("id_clients", clientId);
+            localStorage.setItem("role", role); // Store the role
+    
+            // Redirect based on user role
+            if (role === 'admin') {
+                navigate("/admin-page"); // Redirect to admin dashboard for admin users
+            } else {
+                navigate("/vehicules", { 
+                    state: { 
+                        name: userData.name,
+                        email: userData.email 
+                    } 
+                });
+            }
+    
             setFormData({ email: '', password: '' });
         } catch (err) {
             console.error('Error signing in:', err.response?.data || err);
-            // Handle error (e.g., show an error message)
         }
     };
+    
+    
 
     return (
         <div className="flex justify-center items-center min-h-screen bg-gray-100">
@@ -88,3 +102,4 @@ const SignInComp = () => {
 };
 
 export default SignInComp;
+

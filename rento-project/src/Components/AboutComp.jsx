@@ -6,7 +6,7 @@ const AboutComp = () => {
     <div className="dark:bg-dark bg-slate-100 sm:min-h-[600px] sm:grid sm:place-items-center duration-300 text-black">
       <div className="container">
         <div className="grid grid-cols-1 sm:grid-cols-2 place-items-center">
-          <div data-aos="slide-right" data-aos-duration="1500">
+          <div data-aos="slide-right" data-aos-duration="1à00">
             <img
               src={CarPng}
               alt=""
